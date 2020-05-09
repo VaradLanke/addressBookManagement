@@ -5,10 +5,8 @@ class Address{
 	private String state;
 	private long zip;
 
-	Address(){
-	}
+	Address(){}
 	Address(String addressLine1,String addressLine2,String city,String state,long zip){
-		super();
 		this.addressLine1=addressLine1;
 		this.addressLine2=addressLine2;
 		this.city=city;

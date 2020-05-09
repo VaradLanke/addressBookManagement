@@ -3,7 +3,7 @@ class Person{
         String firstName;
         String lastName;
         Address address;
-		String phoneNumber;
+	String phoneNumber;
 
 	Person(){}
 	Person(String firstName,String lastName,Address address,String phoneNumber){
@@ -24,16 +24,19 @@ class Person{
 	public void setLastName(String lastName){
 		this.lastName=lastName;
 	}
-	public String getAddress(){
-		return this.address.toString();
+	public Address getAddress(){
+		return this.address;
 	}
-	public void setAddress(String addressLine1,String addressLine2,String city,String state,long zip){
+	public void setAddress(Address addr){
+		this.address = addr;
+	}
+	/*public void setAddress(String addressLine1,String addressLine2,String city,String state,long zip){
 		this.address.setAddressLine1(addressLine1);
 		this.address.setAddressLine2(addressLine2);
 		this.address.setCity(city);
 		this.address.setState(state);
 		this.address.setZip(zip);
-	}
+	}*/
 	public String getPhoneNumber(){
 		return this.phoneNumber;
 	}
