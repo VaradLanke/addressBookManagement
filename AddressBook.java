@@ -51,7 +51,7 @@ class AddressBook{
 		personList.add(newPer);
 	}
 	
-		public void editPerson(Person editPer){
+	public void editPerson(Person editPer){
 
 		System.out.print("FName of Person to Edit : ");	
 		String fName = bookSc.next();
