@@ -1,6 +1,9 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.lang.Comparable;
+import java.util.Collections;
+import java.util.Comparator;
 class AddressBook{
 	private String addressBookName;
 	List<Person> personList = new ArrayList<Person>();
@@ -94,9 +97,19 @@ class AddressBook{
 		}
 		System.out.println("Error : Person You are looking does not exist in Address Book!!");
 	}
-	public void sortByFirstName(){}
-	public void sortByLastName(){}
-	public void sortByZipCode(){}
+
+	public void sortByFirstName(){
+		personList.sort(Comparator.comparing(e -> e.getFirstName().toLowerCase()));
+	}
+
+	public void sortByLastName(){
+		personList.sort(Comparator.comparing(e -> e.getLastName().toLowerCase()));
+	}
+
+	public void sortByZipCode(){
+		Collections.sort(personList);
+	}
+
 	public Person getPersonFromList(String name){
 		for (Person per : this.personList) {
 			if(name.equalsIgnoreCase(per.getFirstName())){
@@ -105,7 +118,9 @@ class AddressBook{
 		}
 		return null;
 	}
+
 	public void printAddressBookList(){
+		System.out.println("------------------------------------------");
 		for (Person per : this.personList) {
 			System.out.println(per.toString());
 		}
@@ -113,9 +128,16 @@ class AddressBook{
 
 	public static void main(String[] args){
 		AddressBook yellowPages = new AddressBook("yellowPages");
+		//CRUD
 		//yellowPages.AddPerson(null);
-		yellowPages.editPerson(null);
+		//yellowPages.editPerson(null);
 		//yellowPages.deletePerson(null);	
+		//yellowPages.printAddressBookList();
+
+		//Sorting
+		//yellowPages.sortByFirstName();
+		//yellowPages.sortByLastName();
+		yellowPages.sortByZipCode();
 		yellowPages.printAddressBookList();
 	}
 }
