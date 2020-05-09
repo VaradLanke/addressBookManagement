@@ -1,9 +1,10 @@
-class Person{
+import java.lang.Comparable;
+class Person implements Comparable<Person>{
         //int id;
         String firstName;
         String lastName;
         Address address;
-	String phoneNumber;
+		String phoneNumber;
 
 	Person(){}
 	Person(String firstName,String lastName,Address address,String phoneNumber){
@@ -30,13 +31,6 @@ class Person{
 	public void setAddress(Address addr){
 		this.address = addr;
 	}
-	/*public void setAddress(String addressLine1,String addressLine2,String city,String state,long zip){
-		this.address.setAddressLine1(addressLine1);
-		this.address.setAddressLine2(addressLine2);
-		this.address.setCity(city);
-		this.address.setState(state);
-		this.address.setZip(zip);
-	}*/
 	public String getPhoneNumber(){
 		return this.phoneNumber;
 	}
@@ -45,9 +39,19 @@ class Person{
 	}
 	@Override
 	public String toString(){
-		return this.firstName +" "+ this.lastName +"\n"+ this.phoneNumber +"\n"+ this.address.toString() ;
+		return this.firstName +" "+ this.lastName +"-\n"+ this.phoneNumber +"\n"+ this.address.toString() ;
 	}
-
+	@Override
+	public int compareTo(Person person){
+		if(this.address.getZip() > person.address.getZip()){
+			return 1;
+		}
+		if(this.address.getZip() < person.address.getZip()){
+			return -1;
+		}
+		return 0;
+		//return this.address.getZip().compareTo(person.address.getZip());
+	}
 	/*public static void main(String[] args){
 		Address newAddr = new Address("F45,Hathway Street","Near SBI Bank Borivali","Mumbai","Maharashtra",400066);
 		Person kim = new Person("kim jong","un",newAddr,"9312457120");
