@@ -4,7 +4,10 @@ import java.util.Scanner;
 import java.lang.Comparable;
 import java.util.Collections;
 import java.util.Comparator;
-class AddressBook{
+import java.io.Serializable;
+
+class AddressBook implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String addressBookName;
 	List<Person> personList = new ArrayList<Person>();
 	Scanner bookSc = new Scanner(System.in);
@@ -16,10 +19,14 @@ class AddressBook{
 		this.AddPerson(new Person("Shiva","patil",new Address("Guruwar peth","near SBI Bank","pandharpur","KL",400004),"9641235201"));
 		this.AddPerson(new Person("Martin","Hajare",new Address("Shukrawar peth","near Deutch Bank","Jejuri","PC",400005),"8756301247"));
 		this.AddPerson(new Person("Jecob","Swami",new Address("Shaniwar peth","near Manata Bank","Thane","UP",400006),"9475668421"));
+		
 	}
 	AddressBook(String addressBookName){
 		this();
 		this.addressBookName=addressBookName;
+	}
+	public List<Person> getPersonList(){
+		return this.personList;
 	}
 	public void AddPerson(Person newPer){
 		if(newPer==null){
@@ -126,8 +133,8 @@ class AddressBook{
 		}
 	}
 
-	public static void main(String[] args){
-		AddressBook yellowPages = new AddressBook("yellowPages");
+	/*public static void main(String[] args){
+		//AddressBook yellowPages = new AddressBook("yellowPages");
 		//CRUD
 		//yellowPages.AddPerson(null);
 		//yellowPages.editPerson(null);
@@ -137,9 +144,9 @@ class AddressBook{
 		//Sorting
 		//yellowPages.sortByFirstName();
 		//yellowPages.sortByLastName();
-		yellowPages.sortByZipCode();
-		yellowPages.printAddressBookList();
-	}
+		//yellowPages.sortByZipCode();
+		//yellowPages.printAddressBookList();
+	}*/
 }
 
 

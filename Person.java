@@ -1,10 +1,13 @@
 import java.lang.Comparable;
-class Person implements Comparable<Person>{
-        //int id;
-        String firstName;
-        String lastName;
-        Address address;
-		String phoneNumber;
+import java.io.Serializable;
+
+class Person implements Comparable<Person>,Serializable{
+	private static final long serialVersionUID = 1L;
+    //int id;
+    String firstName;
+    String lastName;
+    Address address;
+	String phoneNumber;
 
 	Person(){}
 	Person(String firstName,String lastName,Address address,String phoneNumber){
