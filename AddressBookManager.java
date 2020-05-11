@@ -18,15 +18,19 @@ class AddressBookManager {
 	ObjectInputStream objInStrm = null;
 	AddressBook currentAddressBook = null;
 
+	public AddressBook getCurrentAddressBook(){
+		return this.currentAddressBook;
+	}
+
 	public void newAddressBook(String addressBookName) throws IOException {
 		currentAddressBook = new AddressBook(addressBookName);
-		file = new File("./ObjectFiles/" + addressBookName);
+		file = new File("./" + addressBookName);
 		System.out.println(addressBookName + " : New File Created Successfully");
 	}
 
 	public void openAddressBook(String addressBookName) throws IOException,ClassNotFoundException {
 		currentAddressBook = new AddressBook(addressBookName);
-		file = new File("./ObjectFiles/" + addressBookName);
+		file = new File("./" + addressBookName);
 		inputStream = new FileInputStream(addressBookName);
 		objInStrm = new ObjectInputStream(inputStream);
 		boolean count = true;
@@ -41,7 +45,7 @@ class AddressBookManager {
 		System.out.println(addressBookName + " : File Opened Successfully");
 	}
 	public void closeAddressBook(String addressBookName) throws IOException{
-		file = new File("./ObjectFiles/" + addressBookName);
+		file = new File("./" + addressBookName);
 		if(file.canWrite() && file != null){
 			outputStream = null;
 			objOutStrm = null;
@@ -63,35 +67,70 @@ class AddressBookManager {
 		}
 	}
 
-	public static int menu(){
-		System.out.println("=========Menu========");
+	public static int fileMenu(){
+		System.out.println("=========File-Menu========");
 		System.out.println("1.Create New AddressBook");
 		System.out.println("2.Open AddressBook");
 		System.out.println("3.Save AddressBook");
 		System.out.println("4.Close AddressBook");
 		System.out.println("9.Exit");
-		System.out.println("=====================");
+		System.out.println("==========================");
 		System.out.println();
 		System.out.println("Enter your choice::");
-		int choice = userScanner.nextInt();
-		return choice;
+		int fileMenuChoice = userScanner.nextInt();
+		return fileMenuChoice;
 	}
+
+	public static int crudMenu(){
+		System.out.println("=========AddressBook-Menu========");
+		System.out.println("1.Add Person");
+		System.out.println("2.Edit Person");
+		System.out.println("3.Delete Person");
+		System.out.println("4.Print AddressBook Entries");
+		System.out.println("9.Exit to File Menu");
+		System.out.println("================================");
+		System.out.println();
+		System.out.println("Enter your choice::");
+		int crudMenuChoice = userScanner.nextInt();
+		return crudMenuChoice;
+	}
+
 	public static void main(String[] args){
 		try{
 			AddressBookManager myManager = new AddressBookManager();
 			String inputAddressBookName = null;
-			//myManager.newAddressBook("yellowPages");
-			//myManager.openAddressBook("yellowPages");
-			//myManager.saveAddressBook("yellowPages");
-			//myManager.closeAddressBook("yellowPages");
 			while(true){
-				int option = menu();
-				switch(option){
+				int fileMenuOption = fileMenu();
+				outerloop:
+				switch(fileMenuOption){
 					case 1:
 							System.out.println("Enter FileName : ");
 							inputAddressBookName = userScanner.next(); //yellowPages					
 							myManager.newAddressBook(inputAddressBookName);
-					break;
+							innerloop:
+							while(true){
+								int crudMenuOption = crudMenu();
+								switch(crudMenuOption){
+									case 1: myManager.getCurrentAddressBook().AddPerson(null);
+									break;
+									case 2: myManager.getCurrentAddressBook().editPerson(null);
+									break;
+									case 3: myManager.getCurrentAddressBook().deletePerson(null);
+									break;
+									case 4: myManager.getCurrentAddressBook().sortByFirstName();
+									break;
+									case 5: myManager.getCurrentAddressBook().sortByLastName();
+									break;
+									case 6: myManager.getCurrentAddressBook().sortByZipCode();
+									break;
+									case 7: myManager.getCurrentAddressBook().printAddressBookList();
+									break;
+									case 9:
+									break outerloop;
+									default: System.out.println("Error : Enter Valid Choice!");
+								}
+							}
+					//break;
 					case 2:
 							System.out.println("Enter FileName : ");
 							inputAddressBookName = userScanner.next(); //yellowPages
@@ -106,13 +145,15 @@ class AddressBookManager {
 					case 9: System.out.println("Exited");
 							System.exit(0);
 					break;
-					default: System.out.println("Invalid Option! Try Again...");
+					default: System.out.println("Error : Invalid Option! Try Again...");
 				}
 			}
-		}/*catch(IOException ex){
+		}catch(IOException ex){
 			ex.printStackTrace();
-		}*/catch(Exception e){
+		}catch(Exception e){
 			e.printStackTrace();
+		}finally{
+			//myManager.closeAddressBook();
 		}
 	}
 }
