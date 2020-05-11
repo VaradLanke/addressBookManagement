@@ -37,13 +37,14 @@ class AddressBookManager {
 		while(count) {
 			if (inputStream.available() != 0) {
 				Person per = (Person) objInStrm.readObject();
-    			currentAddressBook.AddPerson(per);
+    			currentAddressBook.addPerson(per);
     		} else {
       			count = false;
     		}
 		}
 		System.out.println(addressBookName + " : File Opened Successfully");
 	}
+
 	public void closeAddressBook(String addressBookName) throws IOException{
 		file = new File("./" + addressBookName);
 		if(file.canWrite() && file != null){
@@ -56,6 +57,7 @@ class AddressBookManager {
 		}
 		System.out.println(addressBookName + " : File Closed Successfully");
 	}
+	
 	public void saveAddressBook(String addressBookName) throws IOException {
 		if(this.file != null && currentAddressBook != null){
 			outputStream = new FileOutputStream (file);
@@ -86,7 +88,11 @@ class AddressBookManager {
 		System.out.println("1.Add Person");
 		System.out.println("2.Edit Person");
 		System.out.println("3.Delete Person");
-		System.out.println("4.Print AddressBook Entries");
+		System.out.println("4.SortByFirstName");
+		System.out.println("5.SortByLastName");
+		System.out.println("6.SortByZipCode");
+		System.out.println("7.Print All Entries");
+		System.out.println("4.sortByFirstName");
 		System.out.println("9.Exit to File Menu");
 		System.out.println("================================");
 		System.out.println();
@@ -111,7 +117,7 @@ class AddressBookManager {
 							while(true){
 								int crudMenuOption = crudMenu();
 								switch(crudMenuOption){
-									case 1: myManager.getCurrentAddressBook().AddPerson(null);
+									case 1: myManager.getCurrentAddressBook().addPerson(null);
 									break;
 									case 2: myManager.getCurrentAddressBook().editPerson(null);
 									break;
@@ -130,12 +136,32 @@ class AddressBookManager {
 									default: System.out.println("Error : Enter Valid Choice!");
 								}
 							}
-					//break;
 					case 2:
 							System.out.println("Enter FileName : ");
 							inputAddressBookName = userScanner.next(); //yellowPages
 							myManager.openAddressBook(inputAddressBookName);
-					break;
+							while(true){
+								int crudMenuOption = crudMenu();
+								switch(crudMenuOption){
+									case 1: myManager.getCurrentAddressBook().addPerson(null);
+									break;
+									case 2: myManager.getCurrentAddressBook().editPerson(null);
+									break;
+									case 3: myManager.getCurrentAddressBook().deletePerson(null);
+									break;
+									case 4: myManager.getCurrentAddressBook().sortByFirstName();
+									break;
+									case 5: myManager.getCurrentAddressBook().sortByLastName();
+									break;
+									case 6: myManager.getCurrentAddressBook().sortByZipCode();
+									break;
+									case 7: myManager.getCurrentAddressBook().printAddressBookList();
+									break;
+									case 9:
+									break outerloop;
+									default: System.out.println("Error : Enter Valid Choice!");
+								}
+							}
 					case 3:
 							myManager.saveAddressBook(inputAddressBookName);
 					break;
