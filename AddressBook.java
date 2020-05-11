@@ -12,23 +12,15 @@ class AddressBook implements Serializable{
 	List<Person> personList = new ArrayList<Person>();
 	Scanner bookSc = new Scanner(System.in);
 
-	AddressBook(){
-		this.AddPerson(new Person("varad","lanke",new Address("Mangalwar peth","near Janata Bank","Satara","MH",400001),"8956421357"));
-		this.AddPerson(new Person("bharat","Jadhav",new Address("Somwar peth","near Union Bank","Koregaon","GJ",400002),"7845122356"));
-		this.AddPerson(new Person("Anupan","Kale",new Address("Budhwar peth","near BOI Bank","Bhopal","RJ",400003),"9890401257"));
-		this.AddPerson(new Person("Shiva","patil",new Address("Guruwar peth","near SBI Bank","pandharpur","KL",400004),"9641235201"));
-		this.AddPerson(new Person("Martin","Hajare",new Address("Shukrawar peth","near Deutch Bank","Jejuri","PC",400005),"8756301247"));
-		this.AddPerson(new Person("Jecob","Swami",new Address("Shaniwar peth","near Manata Bank","Thane","UP",400006),"9475668421"));
-		
-	}
 	AddressBook(String addressBookName){
-		this();
 		this.addressBookName=addressBookName;
 	}
+
 	public List<Person> getPersonList(){
 		return this.personList;
 	}
-	public void AddPerson(Person newPer){
+
+	public void addPerson(Person newPer){
 		if(newPer==null){
 			newPer = new Person();
 			newPer.setAddress(new Address());
@@ -56,19 +48,16 @@ class AddressBook implements Serializable{
 
 			System.out.print("PhoneNumber : ");
 			newPer.setPhoneNumber(bookSc.next());
+			System.out.println("Added Person Successfully!!");
 		}
-		System.out.println(newPer.toString());
-		personList.add(newPer);
+		this.personList.add(newPer);
 	}
 	
 	public void editPerson(Person editPer){
-
 		System.out.print("FName of Person to Edit : ");	
 		String fName = bookSc.next();
 		editPer = this.getPersonFromList(fName);
-
 		if(editPer!=null){
-
 			System.out.print("New Address Line1 : ");	
 			editPer.getAddress().setAddressLine1(bookSc.next());
 
@@ -106,15 +95,15 @@ class AddressBook implements Serializable{
 	}
 
 	public void sortByFirstName(){
-		personList.sort(Comparator.comparing(e -> e.getFirstName().toLowerCase()));
+		this.personList.sort(Comparator.comparing(e -> e.getFirstName().toLowerCase()));
 	}
 
 	public void sortByLastName(){
-		personList.sort(Comparator.comparing(e -> e.getLastName().toLowerCase()));
+		this.personList.sort(Comparator.comparing(e -> e.getLastName().toLowerCase()));
 	}
 
 	public void sortByZipCode(){
-		Collections.sort(personList);
+		Collections.sort(this.personList);
 	}
 
 	public Person getPersonFromList(String name){
@@ -131,25 +120,6 @@ class AddressBook implements Serializable{
 		for (Person per : this.personList) {
 			System.out.println(per.toString());
 		}
+		return;
 	}
-
-	/*public static void main(String[] args){
-		//AddressBook yellowPages = new AddressBook("yellowPages");
-		//CRUD
-		//yellowPages.AddPerson(null);
-		//yellowPages.editPerson(null);
-		//yellowPages.deletePerson(null);	
-		//yellowPages.printAddressBookList();
-
-		//Sorting
-		//yellowPages.sortByFirstName();
-		//yellowPages.sortByLastName();
-		//yellowPages.sortByZipCode();
-		//yellowPages.printAddressBookList();
-	}*/
 }
-
-
-
-
-
